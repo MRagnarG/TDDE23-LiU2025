@@ -1,6 +1,6 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/python,linux,windows,macos,emacs,pycharm,visualstudiocode
-# Edit at https://www.toptal.com/developers/gitignore?templates=python,linux,windows,macos,emacs,pycharm,visualstudiocode
+# Created by https://www.toptal.com/developers/gitignore/api/python,linux,windows,macos,pycharm,emacs,visualstudiocode,vim
+# Edit at https://www.toptal.com/developers/gitignore?templates=python,linux,windows,macos,pycharm,emacs,visualstudiocode,vim
 
 ### Emacs ###
 # -*- mode: gitignore; -*-
@@ -75,6 +75,7 @@ flycheck_*.el
 
 # Icon must end with two \r
 Icon
+
 
 # Thumbnails
 ._*
@@ -311,6 +312,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+pythonenv*
 
 # Spyder project settings
 .spyderproject
@@ -333,6 +335,29 @@ dmypy.json
 # pytype static type analyzer
 .pytype/
 
+# profiling data
+.prof
+
+### Vim ###
+# Swap
+[._]*.s[a-v][a-z]
+!*.svg  # comment out if you don't need vector files
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# Session
+Session.vim
+Sessionx.vim
+
+# Temporary
+.netrwhist
+# Auto-generated tag files
+tags
+# Persistent undo
+[._]*.un~
+
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
@@ -344,6 +369,7 @@ dmypy.json
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
+.ionide
 
 ### Windows ###
 # Windows thumbnail cache files
@@ -371,4 +397,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/python,linux,windows,macos,emacs,pycharm,visualstudiocode
+# End of https://www.toptal.com/developers/gitignore/api/python,linux,windows,macos,pycharm,emacs,visualstudiocode,vim
