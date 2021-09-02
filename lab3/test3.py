@@ -40,118 +40,76 @@ def test_board():
         + "have been called before."
     )
     board = lab3.new_board()
-<<<<<<< HEAD
-    assert lab3.place_piece(board, 500, 100, "spelare1") is True, (
-        'place_piece(500, 100, "spelare1"): expected True got '
-        + str(lab3.place_piece(board, 500, 100, "spelare1"))
-        + extra_printout
-    )
-
-    board = lab3.new_board()
-    assert lab3.is_free(board, 500, 100) is True, (
-        "is_free(500, 100): expected True got "
-        + str(lab3.is_free(board, 500, 100))
-        + extra_printout
-    )
     res = lab3.place_piece(board, 500, 100, "spelare1")
-
     assert res is True, (
         'place_piece(500, 100, "spelare1"): expected True got '
         + str(res)
         + extra_printout
     )
-    res = lab3.place_piece(board, 1, 100, "spelare2")
 
+    board = lab3.new_board()
+    res = lab3.is_free(board, 500, 100)
+    assert res is True, (
+        "is_free(500, 100): expected True got "
+        + str(res)
+        + extra_printout
+    )
+
+    res = lab3.place_piece(board, 500, 100, "spelare1")
+    assert res is True, (
+        'place_piece(500, 100, "spelare1"): expected True got '
+        + str(res)
+        + extra_printout
+    )
+
+    res = lab3.place_piece(board, 1, 100, "spelare2")
     assert res is True, (
         'place_piece(1, 100, "spelare2"): expected True got '
         + str(res)
         + extra_printout
     )
-    res = lab3.place_piece(board, 500, 100, "spelare2")
 
+    res = lab3.place_piece(board, 500, 100, "spelare2")
     assert res is False, (
         'place_piece(500, 100, "spelare2"): expected False got '
         + str(res)
         + extra_printout
     )
-    res = lab3.place_piece(board, 500, 200, "spelare2")
 
+    res = lab3.place_piece(board, 500, 200, "spelare2")
     assert res is True, (
         'place_piece(500, 200, "spelare2"): expected True got '
         + str(res)
         + extra_printout
     )
 
-    assert lab3.nearest_piece(board, 500, 200) == (500, 200), (
+    res = lab3.nearest_piece(board, 500, 200)
+    assert res == (500, 200), (
         "nearest_piece(500, 200): expected (500, 200) got "
-        + str(lab3.nearest_piece(board, 500, 200))
+        + str(res)
         + extra_printout
     )
 
-    assert lab3.is_free(board, 500, 100) is False, (
+    res = lab3.is_free(board, 500, 100)
+    assert res is False, (
         "is_free(500, 100): expected False got "
-        + str(lab3.is_free(board, 500, 100))
+        + str(res)
         + extra_printout
     )
 
-    assert lab3.get_piece(board, 500, 100) == "spelare1", (
+    res = lab3.get_piece(board, 500, 100)
+    assert res == "spelare1", (
         'get_piece(500, 100): expected "spelare1" got '
-        + str(lab3.get_piece(board, 500, 100))
+        + str(res)
         + extra_printout
     )
 
-    assert lab3.get_piece(board, 666, 666) is False, (
+    res = lab3.get_piece(board, 666, 666)
+    assert res is False, (
         "get_piece(666, 666): expected False got "
-        + str(lab3.get_piece(board, 666, 666))
+        + str(res)
         + extra_printout
     )
-=======
-    res = lab3.place_piece(board, 500, 100, "spelare1")
-    assert res is True, \
-        'place_piece(500, 100, "spelare1"): expected True got ' + \
-        str(res) + extra_printout
-
-    board = lab3.new_board()
-    assert lab3.is_free(board, 500, 100) is True, \
-        'is_free(500, 100): expected True got ' + \
-        str(lab3.is_free(board, 500, 100)) + extra_printout
-
-    res = lab3.place_piece(board, 500, 100, "spelare1")
-    assert res is True, \
-        'place_piece(500, 100, "spelare1"): expected True got ' + \
-        str(res) + extra_printout
-
-    res = lab3.place_piece(board, 1, 100, "spelare2")
-    assert res is True, \
-        'place_piece(1, 100, "spelare2"): expected True got ' + \
-        str(res) + extra_printout
-
-    res = lab3.place_piece(board, 500, 100, "spelare2")
-    assert res is False, \
-        'place_piece(500, 100, "spelare2"): expected False got ' + \
-        str(res) + extra_printout
-
-    res = lab3.place_piece(board, 500, 200, "spelare2")
-    assert res is True, \
-        'place_piece(500, 200, "spelare2"): expected True got ' + \
-        str(res) + extra_printout
-
-    assert lab3.nearest_piece(board, 500, 200) == (500, 200), \
-        'nearest_piece(500, 200): expected (500, 200) got ' + \
-        str(lab3.nearest_piece(board, 500, 200)) + extra_printout
-
-    assert lab3.is_free(board, 500, 100) is False, \
-        'is_free(500, 100): expected False got ' + \
-        str(lab3.is_free(board, 500, 100)) + extra_printout
-
-    assert lab3.get_piece(board, 500, 100) == "spelare1", \
-        'get_piece(500, 100): expected "spelare1" got ' + \
-        str(lab3.get_piece(board, 500, 100)) + extra_printout
-
-    assert lab3.get_piece(board, 666, 666) is False, \
-        'get_piece(666, 666): expected False got ' + \
-        str(lab3.get_piece(board, 666, 666)) + extra_printout
->>>>>>> e3abf51e1552ec9d84eb71eac9ac0181cfdfeed4
 
     res = lab3.remove_piece(board, 500, 100)
     assert res is True, (
@@ -163,9 +121,10 @@ def test_board():
         "remove_piece(1, 1): expected False got " + str(res) + extra_printout
     )
 
-    assert lab3.is_free(board, 500, 100) is True, (
+    res = lab3.is_free(board, 500, 100)
+    assert res is True, (
         "is_free(500, 100): expected True got "
-        + str(lab3.is_free(board, 500, 100))
+        + str(res)
         + extra_printout
     )
 
@@ -174,32 +133,37 @@ def test_board():
         "move_piece(500, 200, 500, 100): expected True got " + str(res) + extra_printout
     )
 
-    assert lab3.get_piece(board, 500, 100) == "spelare2", (
+    res = lab3.get_piece(board, 500, 100)
+    assert res == "spelare2", (
         'get_piece(500, 100): expected "spelare2" got '
-        + str(lab3.get_piece(board, 500, 100))
+        + str(res)
         + extra_printout
     )
 
-    assert lab3.count(board, "column", 500, "spelare2") == 1, (
+    res = lab3.count(board, "column", 500, "spelare2")
+    assert res == 1, (
         'count("column", 500, "spelare2"): expected 1 got '
-        + str(lab3.count(board, "column", 500, "spelare2"))
+        + str(res)
         + extra_printout
     )
 
-    assert lab3.count(board, "row", 100, "spelare2") == 2, (
+    res = lab3.count(board, "row", 100, "spelare2")
+    assert res == 2, (
         'count("row", 100, "spelare2"): expected 2 got '
-        + str(lab3.count(board, "row", 100, "spelare2"))
+        + str(res)
         + extra_printout
     )
 
-    assert lab3.nearest_piece(board, 500, 105) == (500, 100), (
+    res = lab3.nearest_piece(board, 500, 105)
+    assert res == (500, 100), (
         "nearest_piece(500, 105): expected (500, 100) got "
         + str(lab3.nearest_piece(board, 500, 105))
         + extra_printout
     )
 
     board = lab3.new_board()
-    assert lab3.nearest_piece(board, 500, 100) in (False, ()), (
+    res = lab3.nearest_piece(board, 500, 100)
+    assert res in (False, ()), (
         "nearest_piece(500, 100): expected False or () got "
         + str(lab3.nearest_piece(board, 500, 100))
         + extra_printout
