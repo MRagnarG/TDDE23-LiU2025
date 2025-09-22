@@ -48,7 +48,7 @@ def get_piece(board:dict, c:int, r:int):
     c: Supports int
     r: Supports int
     """
-    if not is_free(c,r):
+    if not is_free(board, c,r):
         return board[(c,r)]
     else:
         return False
@@ -65,7 +65,7 @@ def remove_piece(board:dict, c:int, r:int)->bool:
     r: Supports int
     """
 
-    if not is_free(c,r):
+    if not is_free(board, c,r):
         board.pop((c,r))
         return True
     else:
@@ -87,7 +87,7 @@ def move_piece(board:dict, c1:int, r1:int, c2:int, r2:int)->bool:
     r2: Supports int
     """
 
-    if is_free(board, c2, r2) and not is_free(c1,r1):
+    if is_free(board, c2, r2) and not is_free(board, c1,r1):
         board[(c2,r2)] = board.pop((c1, r1))
         return True
     else:
@@ -138,10 +138,10 @@ def count(board:dict, c_or_r:str, plats:int, player:str)->int:
     for p in board.keys():
         (c,r) = p
 
-        if c_or_r == "column" and c==plats and get_piece[board, c, r] == player:
+        if c_or_r == "column" and c == plats and get_piece(board, c, r) == player:
             counter += 1
     
-        elif c_or_r == "row" and r==plats and get_piece[board, c, r] == player:
+        elif c_or_r == "row" and r == plats and get_piece(board, c, r) == player:
             counter += 1
     
     return counter
