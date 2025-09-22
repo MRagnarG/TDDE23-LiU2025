@@ -48,7 +48,7 @@ def get_piece(board:dict, c:int, r:int):
     c: Supports int
     r: Supports int
     """
-    if (c,r) in board:
+    if not is_free(c,r):
         return board[(c,r)]
     else:
         return False
@@ -65,7 +65,7 @@ def remove_piece(board:dict, c:int, r:int)->bool:
     r: Supports int
     """
 
-    if (c,r) in board:
+    if not is_free(c,r):
         board.pop((c,r))
         return True
     else:
@@ -87,7 +87,7 @@ def move_piece(board:dict, c1:int, r1:int, c2:int, r2:int)->bool:
     r2: Supports int
     """
 
-    if is_free(board, c2, r2) and (c1,r1) in board:
+    if is_free(board, c2, r2) and not is_free(c1,r1):
         board[(c2,r2)] = board.pop((c1, r1))
         return True
     else:
@@ -118,7 +118,6 @@ def nearest_piece(board:dict, c:int, r:int)->tuple:
         if temp_dis < distance:
             distance = temp_dis
             nearest = p
-            continue
 
     return nearest
 
@@ -127,7 +126,7 @@ def count(board:dict, c_or_r:str, plats:int, player:str)->int:
     """
     Function that will count how many pieces of a certain
     player are on a specific row or column. Return the 
-    ammount as a integer.
+    ammount.
 
     board: Supports dict
     c_or_r: Supports str
@@ -139,14 +138,11 @@ def count(board:dict, c_or_r:str, plats:int, player:str)->int:
     for p in board.keys():
         (c,r) = p
 
-        if c_or_r == "column" and c==plats and board[p] == player:
+        if c_or_r == "column" and c==plats and get_piece[board, c, r] == player:
             counter += 1
     
-        elif c_or_r == "row" and r==plats and board[p] == player:
+        elif c_or_r == "row" and r==plats and get_piece[board, c, r] == player:
             counter += 1
-
-        else:
-            continue
     
     return counter
 
@@ -166,7 +162,7 @@ def factorial (x:int)->int:
     
     return x * factorial(x-1)
 
-def mult(n:int, k:int)->int:
+def fac_div(n:int, k:int)->int:
     """
     Function that, given two different positive integer numbers n,k for which n>k, 
     will proceed to multiply n with all the numbers between n and k.
@@ -182,7 +178,7 @@ def mult(n:int, k:int)->int:
     if n == k+1:
         return k+1
     
-    return n * mult(n-1, k)
+    return n * fac_div(n-1, k)
 
 def choose (n:int,k:int)->int:
     """
@@ -200,9 +196,8 @@ def choose (n:int,k:int)->int:
     diff = n-k
 
     if k > diff:
-        numerator = mult(n, k)
+        numerator = fac_div(n, k)
         return numerator//factorial(diff)
     else:
-        numerator = mult(n,diff)
+        numerator = fac_div(n,diff)
         return numerator//factorial(k)
-
