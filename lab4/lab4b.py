@@ -1,9 +1,9 @@
 # %%
 
-def work_with_op(valid_exp : list | str, interp : dict)-> str:
+def valid_exp_is_list (valid_exp : list , interp : dict)-> str:
 
     """
-    Works with a valid expression with operations and with a interpretation.
+    Works with a valid expression (list) with operators and with a interpretation (dict).
     """
 
     # checks if ""NOT" is in lista and we have most 2 elements on the lsit. 
@@ -36,25 +36,6 @@ def work_with_op(valid_exp : list | str, interp : dict)-> str:
             else:
                 return "false"
 
-    
-def valid_exp_is_list (valid_exp : list , interp : dict)-> str:
-
-    """
-    Works with a valid expression (list) and with a interpretation (dict).
-    Returns "true" or "false" as str.
-    """
-
-    # Create a variable to the first item of the list.
-    first_in_list = valid_exp[0]
-        
-     # if only one element in valid_exp and this element in interp, 
-     # return value.    
-    if len(valid_exp) == 1 and isinstance(first_in_list, str):
-        return interpret(valid_exp[0], interp)
-    
-    return work_with_op(valid_exp, interp)
-
-
 def valid_exp_is_str (valid_exp : str , interp : dict)-> str:
 
     """
@@ -65,11 +46,7 @@ def valid_exp_is_str (valid_exp : str , interp : dict)-> str:
     if valid_exp in interp:
         return interp[valid_exp]
     
-    if valid_exp == "true":
-        return "true"
-    
-    if valid_exp == "false":
-        return "false"
+    return valid_exp
             
     
 def interpret(valid_exp : list | str, interp : dict)->str:
@@ -77,7 +54,7 @@ def interpret(valid_exp : list | str, interp : dict)->str:
     Main function that will take a expression (str | list) and a 
     interpretation (dict) and checks if the expression is valid or not.
     """
-  
+    
     # Works this flow if the valid_exp is a list.
     if isinstance(valid_exp, list):
         return valid_exp_is_list(valid_exp, interp)

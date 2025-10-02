@@ -8,13 +8,13 @@ def split_it(txt:str)->str:
     fall1 = ""
     fall2 = ""
 
-    for a in txt:
+    for char in txt:
 
-        if a.islower() or a in ("_", "."):
-            fall1 += a
+        if char.islower() or char in ("_", "."):
+            fall1 += char
         
-        elif a.isupper() or a.isspace() or a == "|":
-            fall2 += a
+        elif char.isupper() or char.isspace() or char == "|":
+            fall2 += char
     
     return (fall1,fall2)
 
