@@ -84,3 +84,4 @@ def interpret(valid_exp : list | str, interp : dict)->str:
         
     else:
         return valid_exp_is_str(valid_exp, interp)
+
