@@ -32,7 +32,7 @@ def combine_images(
     for index in range(len(list_hsv_pixels)):
         mask_pixel = list_hsv_pixels[index]
         weight = mask_function(mask_pixel)
-
+        
         if weight == 1:
             comb_img.append(gen1(index))
         else:

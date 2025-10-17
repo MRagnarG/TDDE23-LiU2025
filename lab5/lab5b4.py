@@ -1,4 +1,3 @@
-# %%
 import cv2
 from cvlib import rgblist_to_cvimg
 from lab5a import cvimg_to_list
@@ -7,11 +6,11 @@ from lab5b2 import generator_from_image
 
 def gradient_condition(pixel):
     """Function that given a pixel in BGR format, will return a value(float)
-        to serve as weight in a image blender.  """
+    to serve as weight in a image blender."""
     return pixel[2] / 255
 
 
-def pixel_blend(p1: tuple, p2: tuple, weight:float)-> tuple:
+def pixel_blend(p1: tuple, p2: tuple, weight: float) -> tuple:
     """Returns a new pixel (tuple) with new values based on a weight.
 
     Args:
