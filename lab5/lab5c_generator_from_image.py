@@ -24,36 +24,36 @@ def test_generator_from_image():
             "a" : TypeError
         }
 
-        for a in data:
-            expected = data[a]
+        for index_test in data:
+            expected = data[index_test]
 
             if expected in (IndexError, TypeError):
                 
                 try:
-                    test(a)
-                    raise AssertionError(f"Expected IndexError for input {a},"
-                            +f" but no error was raised. Got: {test(a)}")
+                    test(index_test)
+                    raise AssertionError(f"Expected IndexError for input"
+                        +f"{index_test}, but no error was raised."
+                        +f" Got: {test(index_test)}")
                 
                 except IndexError:
-                    print(f"Correctly raised IndexError for {a} .")
+                    print(f"Correctly raised IndexError for {index_test} .")
 
                 except TypeError:
-                    print(f"Correctly raised TypeError for {a} .")
+                    print(f"Correctly raised TypeError for {index_test} .")
                 
-                except Exception as e:
-                    raise AssertionError(f"Expected IndexError but got {type(e).__name__} instead.")
                 
             else:
 
-                result = test(a)
+                result = test(index_test)
                 
                 assert result == expected, ("Test Error: Image:" 
                 +f"{images[image]} || Expected: {expected}|| Got: {result}.")
 
                 print(f"Test succesfull: Image:{images[image]} || Expected: "
                     +f"{expected} || Got: {result}")
+                
 
-        # Summary banner shown only if all assertions pass
+    # Summary banner shown only if all assertions pass
     print("""
         *~.^.~.*~.^.~.*~.^.~.*~.^.~.*~.^.~.*~.^.~.*~.^.~.*~
            C  O  N  G  R  A  T  U  L  A  T  I  O  N  S !
