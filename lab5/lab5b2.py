@@ -22,7 +22,7 @@ def generator_from_image(img: cv2.AsyncArray):
             int or tuple: if there's no pixel on that index, returns 0,
             otherwise, returns pixels color.
         """
-        if not img[index]:
+        if index >= len(img):
             return 0
 
         else:
