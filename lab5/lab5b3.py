@@ -12,11 +12,11 @@ def combine_images(
     mask_function,
     gen1,
     gen2,
-) -> list:
+    ) -> list:
     """Function that takes a list, and three other functions - a mask function
     that decides how to interpret the elements of the list, a first image
     function that returns pixels of that image and a second image function
-    that returns pixels of that image - and combine the two images.
+    that returns pixels of that other image - and combine the two images.
 
     Args:
         list_hsv_pixels (list): list with pixels in it.

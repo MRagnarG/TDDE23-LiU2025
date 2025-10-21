@@ -10,8 +10,10 @@ def pixel_constraint(hlow:int, hhigh:int, slow:int, shigh:int, vlow:int, vhigh:i
     Args:
         hlow (int): lowest value for hue
         hhigh (int): highest value for hue
+
         slow (int): lowest value for saturation
         shigh (int): highest value for saturation
+        
         vlow (int): lowest value for value
         vhigh (int): highest value for value
     """

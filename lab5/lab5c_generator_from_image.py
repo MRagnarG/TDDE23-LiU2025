@@ -20,24 +20,35 @@ def test_generator_from_image():
             0 : list_img[0],
             -1 : list_img[-1],
             len(list_img) : IndexError,
-            "" : 0,
-            "a" : IndexError
+            "" : TypeError,
+            "a" : TypeError
         }
 
         for a in data:
-            print(a)
-            result = test(a)
             expected = data[a]
 
             if expected is IndexError:
-                assert result == IndexError
-
+                
+                try:
+                    test(a)
+                    raise AssertionError(f"Expected IndexError for input {a},"
+                            +f" but no error was raised. Got: {test(a)}")
+                
+                except IndexError:
+                    print(f"Correctly raised IndexError for {a}")
+                
+                except Exception as e:
+                    raise AssertionError(f"Expected IndexError but got {type(e).__name__} instead.")
+                
             else:
-                assert result == expected, (f"Test Error: Image: {images[image]}"
-            +f" || Expected: {expected}|| Got: {result}.")
-            
-            print(f"Test succesfull: Image:{images[image]} || Expected: "
-                +f"{expected} || Got: {result}")
+
+                result = test(a)
+                
+                assert result == expected, ("Test Error: Image:" 
+                +f"{images[image]} || Expected: {expected}|| Got: {result}.")
+
+                print(f"Test succesfull: Image:{images[image]} || Expected: "
+                    +f"{expected} || Got: {result}")
 
         # Summary banner shown only if all assertions pass
         print("""
