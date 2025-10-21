@@ -25,7 +25,7 @@ def pixel_blend(p1: tuple, p2: tuple, weight: float) -> tuple:
     for v1, v2 in zip(
         p1,
         p2,
-        ):
+    ):
         result = v1 * weight + v2 * (1 - weight)
         new_pix.append(result)
 

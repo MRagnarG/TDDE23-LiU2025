@@ -1,10 +1,12 @@
 import cv2
-from lab5a import cvimg_to_list
 from cvlib import greyscale_list_to_cvimg
+from lab5a import cvimg_to_list
 
 
-def pixel_constraint(hlow:int, hhigh:int, slow:int, shigh:int, vlow:int, vhigh:int):
-    """Function that creates a new function that, given a pixel, returns if    
+def pixel_constraint(
+    hlow: int, hhigh: int, slow: int, shigh: int, vlow: int, vhigh: int
+):
+    """Function that creates a new function that, given a pixel, returns if
     it is between desired interval.
 
     Args:
@@ -13,18 +15,19 @@ def pixel_constraint(hlow:int, hhigh:int, slow:int, shigh:int, vlow:int, vhigh:i
 
         slow (int): lowest value for saturation
         shigh (int): highest value for saturation
-        
+
         vlow (int): lowest value for value
         vhigh (int): highest value for value
     """
-    def is_in_interval(pixel:tuple):
+
+    def is_in_interval(pixel: tuple):
         """Function that checks if a given pixel is in a pre decided interval.
 
         Args:
             pixel (tuple): hsv_pixel
 
         Returns:
-            1 if the pixel is in the desired interval, 
+            1 if the pixel is in the desired interval,
             0 if it's not.
         """
         (h, s, v) = pixel

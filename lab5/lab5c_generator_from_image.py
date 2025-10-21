@@ -2,7 +2,7 @@
 from lab5a import cvimg_to_list
 from lab5b2 import generator_from_image
 import cv2
-
+# %%
 images = {
     "./test_images/saab_arena.jpg" : "Saab Arena",
     "./test_images/praca_liberdade.jpg" : "Praça da Liberdade",

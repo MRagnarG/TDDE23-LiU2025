@@ -1,10 +1,10 @@
 import cv2
-from lab5a import cvimg_to_list
 from cvlib import rgblist_to_cvimg
+from lab5a import cvimg_to_list
 
 
 def generator_from_image(img: cv2.AsyncArray):
-    """Function that given an array with pixels in it, will use a intern 
+    """Function that given an array with pixels in it, will use a intern
     function to return a specified pixel color in hsv format.
 
     Args:

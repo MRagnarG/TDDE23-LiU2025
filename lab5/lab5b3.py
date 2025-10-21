@@ -12,7 +12,7 @@ def combine_images(
     mask_function,
     gen1,
     gen2,
-    ) -> list:
+) -> list:
     """Function that takes a list, and three other functions - a mask function
     that decides how to interpret the elements of the list, a first image
     function that returns pixels of that image and a second image function
@@ -32,7 +32,7 @@ def combine_images(
     for index in range(len(list_hsv_pixels)):
         mask_pixel = list_hsv_pixels[index]
         weight = mask_function(mask_pixel)
-        
+
         if weight == 1:
             comb_img.append(gen1(index))
         else:
