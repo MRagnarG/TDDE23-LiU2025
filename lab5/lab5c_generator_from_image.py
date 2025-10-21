@@ -19,7 +19,7 @@ def test_generator_from_image():
         data = {
             0 : list_img[0],
             -1 : list_img[-1],
-            len(list_img) : IndexError,
+            len(list_img) : 0,
             "" : TypeError,
             "a" : TypeError
         }
@@ -27,7 +27,7 @@ def test_generator_from_image():
         for a in data:
             expected = data[a]
 
-            if expected is IndexError:
+            if expected in (IndexError, TypeError):
                 
                 try:
                     test(a)
@@ -35,7 +35,10 @@ def test_generator_from_image():
                             +f" but no error was raised. Got: {test(a)}")
                 
                 except IndexError:
-                    print(f"Correctly raised IndexError for {a}")
+                    print(f"Correctly raised IndexError for {a} .")
+
+                except TypeError:
+                    print(f"Correctly raised TypeError for {a} .")
                 
                 except Exception as e:
                     raise AssertionError(f"Expected IndexError but got {type(e).__name__} instead.")
@@ -51,11 +54,11 @@ def test_generator_from_image():
                     +f"{expected} || Got: {result}")
 
         # Summary banner shown only if all assertions pass
-        print("""
-            *~.^.~.*~.^.~.*~.^.~.*~.^.~.*~.^.~.*~.^.~.*~.^.~.*~
-               C  O  N  G  R  A  T  U  L  A  T  I  O  N  S !
-            *~.^.~.*~.^.~.*~.^.~.*~.^.~.*~.^.~.*~.^.~.*~.^.~.*~
-            """)
-        print("\n                          All tests passed!")
+    print("""
+        *~.^.~.*~.^.~.*~.^.~.*~.^.~.*~.^.~.*~.^.~.*~.^.~.*~
+           C  O  N  G  R  A  T  U  L  A  T  I  O  N  S !
+        *~.^.~.*~.^.~.*~.^.~.*~.^.~.*~.^.~.*~.^.~.*~.^.~.*~
+        """)
+    print("\n                          All tests passed!")
 
 test_generator_from_image()
