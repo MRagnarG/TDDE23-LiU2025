@@ -1,112 +1,117 @@
-from random import randint as r_int
+# test_pixel_constraint.py
+# Testar funktionerna som returneras av pixel_constraint
+# (lab5b1.pixel_constraint)
 
+# %%
 from lab5b1 import pixel_constraint
 
 
-def generate_hsv_max_min_data():
-    """Generate randomized HSV intervals and test pixels for pixel_constraint.
+def test_basic():
+    # Testar pixel inom alla tre intervall -> 1, annars 0.
+    is_in = pixel_constraint(10, 20, 30, 40, 50, 60)
+    assert is_in((15, 35, 55)) == 1
+    assert is_in((9, 35, 55)) == 0  # H under min
+    assert is_in((21, 35, 55)) == 0  # H över max
+    assert is_in((15, 29, 55)) == 0  # S under min
+    assert is_in((15, 41, 55)) == 0  # S över max
+    assert is_in((15, 35, 49)) == 0  # V under min
+    assert is_in((15, 35, 61)) == 0  # V över max
 
-    Each key in the returned dictionary is a 6-element tuple representing
-        the HSV min/max bounds:
-            (hlow, hhigh, slow, shigh, vlow, vhigh)
 
-        Each value is another dictionary mapping test pixels (h, s, v) to the
-        expected output (1 if inside interval, 0 otherwise).
+def test_limits():
+    # Testar och bekräftar att gränserna är inkluderande (>= och <=).
+    is_in = pixel_constraint(10, 20, 30, 40, 50, 60)
+    assert is_in((10, 30, 50)) == 1  # vänstergränser
+    assert is_in((20, 40, 60)) == 1  # högergränser
+    assert is_in((11, 30, 50)) == 1
+    assert is_in((19, 40, 60)) == 1
 
-        Returns:
-            Dict[Tuple[int, int, int, int, int, int],
-            Dict[Tuple[int, int, int], int]]:
-                A mapping from HSV intervals to their test pixels and expected
-                  results.
 
-    """
-    data_dict = {}
+def test_extrema_hsv():
+    #  - HSV values behandlas från 0 till 255. Testa 0 och 255.
+    #  - Negativa värden och >255 ska ge 0 (utanför intervall).
+    is_in = pixel_constraint(0, 255, 0, 255, 0, 255)
+    assert is_in((0, 0, 0)) == 1
+    assert is_in((255, 255, 255)) == 1
+    assert is_in((-1, 100, 100)) == 0
+    assert is_in((100, 100, 300)) == 0
 
-    # Generates a random number of tests between 4 and 6
-    for n in range(r_int(4, 7)):
-        test_data = []
 
-        for h_or_s_or_v in range(3):  # Iterate over H, S, and V components
-            for min_max in range(2):  # Each component has a (min, max) pair
-                # Ensure the max value is at least 2 greater than its min
-                # and never exceeds 254 (to keep future test pixels valid)
-                if min_max == 1:
-                    last_index = len(test_data) - 1
-                    last_number = test_data[last_index]
-                    test_data.append(r_int(last_number + 2, 254))
-                else:
-                    # Ensure the min value isn't 0 and doesn't pass 252 (to
-                    # keep future test pixels valid and leave a gap to max)
-                    test_data.append(r_int(2, 252))
+def test_tuple_error():
+    #  Testa att Felaktig input (fel tuple-längd) ska leda till ValueError,
+    #  eftersom funktionen packar upp (h, s, v) ur pixel.
+    is_in = pixel_constraint(0, 255, 0, 255, 0, 255)
+    raised = False
+    try:
+        is_in((10, 20))  # endast 2 element
+    except ValueError:
+        raised = True
+    assert raised is True
 
-        data_results = {}
 
-        # Generates three different tests
-        for results in range(3):
-            test_pixel = []
+def test_type_value_error():
+    #  Testar Felaktig typ (t.ex. None eller str) bör orsaka
+    #  TypeError eller ValueError vid jämförelser.
+    is_in = pixel_constraint(0, 10, 0, 10, 0, 10)
 
-            for min_v, max_v in zip(test_data[::2], test_data[1::2]):
-                # Valid pixel in interval
-                if results == 0:
-                    test_pixel.append(r_int(min_v + 1, max_v - 1))
+    def expect_type_error(pixel):
+        raised = False
+        try:
+            is_in(pixel)
+        except (TypeError, ValueError):
+            raised = True
+        return raised
 
-                # Two invalid pixels in inteval, one above and another under.
-                if results == 1:
-                    test_pixel.append(r_int(0, min_v - 1))
-                if results == 2:
-                    test_pixel.append(r_int(max_v + 1, 255))
+    assert expect_type_error(None) is True
+    assert expect_type_error("not-a-tuple") is True  # ValueError
+    assert (
+        expect_type_error((1, "x", 3)) is True
+    )  # str jämförs mot int -> TypeError
 
-            # Expected results to each tested pixel.
-            if results == 0:
-                data_results[tuple(test_pixel)] = 1
-            else:
-                data_results[tuple(test_pixel)] = 0
 
-        data_dict[tuple(test_data)] = data_results
-
-    return data_dict
+def test_float_values():
+    #   TEstar om float ges in (t.ex. efter beräkningar),
+    #   jämförelsen fungerar i Python.
+    is_in = pixel_constraint(0, 10, 0, 10, 0, 10)
+    assert is_in((5.0, 10.0, 0.0)) == 1
+    assert is_in((10.1, 5.0, 5.0)) == 0  # utanför H
 
 
 def test_pixel_constraint():
-    """
-    Test the pixel_constraint() function using data from
-    generate_hsv_max_min_data().
+    tests = [
+        test_basic,
+        test_limits,
+        test_extrema_hsv,
+        test_tuple_error,
+        test_type_value_error,
+        test_float_values,
+    ]
 
-    For each generated HSV interval, it creates a corresponding
-    pixel_constraint function and checks that all test pixels
-    return the expected result (1 if inside, 0 otherwise).
-    """
-    # Generate randomized HSV test intervals and their expected pixel results
-    data = generate_hsv_max_min_data()
+    passed = 0
+    failed = 0
+    failed_names = []
 
-    # For each HSV interval, build the corresponding pixel_constraint function
-    for interval in data:
-        is_in_interval = pixel_constraint(*interval)
-
-        # Test each pixel for this interval against the expected outcome
-        for pixel_test in data[interval]:
-            result = is_in_interval(pixel_test)
-            expected = data[interval][pixel_test]
-
-            # Verify correctness: 1 if pixel inside interval, 0 otherwise
-            assert result == expected, (
-                f"Not passed! Error in interval {interval} | Tested pixel:"
-                + f" {pixel_test}| Expected: {expected}, Got: {result}."
+    for t in tests:
+        try:
+            t()
+            passed += 1
+        except AssertionError:
+            failed += 1
+            failed_names.append(t.__name__)
+        except Exception as e:
+            # Ovän­tade fel räknas som fail och skrivs ut för diagnos.
+            failed += 1
+            failed_names.append(
+                f"{t.__name__} (unexpected: {type(e).__name__}: {e})"
             )
 
-            # Log passed cases for traceability
-            print(
-                f"Passed: {interval} | Tested pixel: {pixel_test} | "
-                + f"Expected: {expected}, Got: {result}."
-            )
-
-    # Summary banner shown only if all assertions pass
-    print("""
-        *~.^.~.*~.^.~.*~.^.~.*~.^.~.*~.^.~.*~.^.~.*~.^.~.*~
-           C  O  N  G  R  A  T  U  L  A  T  I  O  N  S !
-        *~.^.~.*~.^.~.*~.^.~.*~.^.~.*~.^.~.*~.^.~.*~.^.~.*~
-        """)
-    print("\n                          All tests passed!")
+    total = passed + failed
+    print(
+        f"pixel_constraint Test: Ran {total} tests: "+
+        f"{passed} passed, {failed} failed."
+    )
+    if failed_names:
+        print("Failed:", ", ".join(failed_names))
 
 
 if __name__ == "__main__":
