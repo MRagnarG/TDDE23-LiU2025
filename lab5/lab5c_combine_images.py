@@ -1,6 +1,5 @@
-# %%
-from lab5b3 import combine_images
 from lab5b2 import generator_from_image
+from lab5b3 import combine_images
 
 
 def test_basic():
@@ -85,7 +84,7 @@ def test_float():
 
 
 def test_non1_weight():
-    # Testar att alla vikter som inte är exakt lika med 1 ska välja gen2 
+    # Testar att alla vikter som inte är exakt lika med 1 ska välja gen2
     # enligt koden.
     for w in (0, 0.5, 2, -1, None, "1"):
         hsv_list = [(0, 0, 0), (0, 0, 0)]
@@ -112,12 +111,13 @@ def test_hsv_list_err():
         return 0
 
     raised = False
+
     def gen_black(i):
         return (0, 0, 0)
 
     def gen_white(i):
         return (255, 255, 255)
-    
+
     try:
         combine_images(hsv_list, mask_fn, gen_black, gen_white)
     except TypeError:
@@ -126,7 +126,8 @@ def test_hsv_list_err():
 
 
 def test_none():
-    # Testar felaktig input: None som hsv_list ska orsaka TypeError (iterering på None)
+    # Testar felaktig input: None som hsv_list ska orsaka
+    # TypeError (iterering på None)
     raised = False
 
     def gen_black(i):
@@ -134,11 +135,9 @@ def test_none():
 
     def gen_white(i):
         return (255, 255, 255)
-    
+
     try:
-        combine_images(
-            None, lambda p: 1, gen_black, gen_white
-        )
+        combine_images(None, lambda p: 1, gen_black, gen_white)
     except TypeError:
         raised = True
     assert raised is True

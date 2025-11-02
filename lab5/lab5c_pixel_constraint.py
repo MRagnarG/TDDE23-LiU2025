@@ -1,8 +1,3 @@
-# test_pixel_constraint.py
-# Testar funktionerna som returneras av pixel_constraint
-# (lab5b1.pixel_constraint)
-
-# %%
 from lab5b1 import pixel_constraint
 
 

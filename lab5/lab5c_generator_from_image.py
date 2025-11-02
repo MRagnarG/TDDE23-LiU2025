@@ -106,7 +106,7 @@ def test_generator_from_image():
           f" {passed} passed, {failed} failed.")
     if failed_names:
         print("Failed:", ", ".join(failed_names))
+    
+    pass
 
 
-if __name__ == "__main__":
-    test_generator_from_image()
