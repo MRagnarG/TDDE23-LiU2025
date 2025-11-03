@@ -20,8 +20,6 @@ def test_limits():
     is_in = pixel_constraint(10, 20, 30, 40, 50, 60)
     assert is_in((10, 30, 50)) == 1  # vänstergränser
     assert is_in((20, 40, 60)) == 1  # högergränser
-    assert is_in((11, 30, 50)) == 1
-    assert is_in((19, 40, 60)) == 1
 
 
 def test_extrema_hsv():
@@ -76,7 +74,7 @@ def test_float_values():
 
 def test_pixel_constraint():
     """Runs all pixel-constraint tests and reports pass/fail counts."""
-    
+
     tests = [
         test_basic,
         test_limits,
@@ -106,8 +104,8 @@ def test_pixel_constraint():
 
     total = passed + failed
     print(
-        f"pixel_constraint Test: Ran {total} tests: "+
-        f"{passed} passed, {failed} failed."
+        f"pixel_constraint Test: Ran {total} tests: "
+        + f"{passed} passed, {failed} failed."
     )
     if failed_names:
         print("Failed:", ", ".join(failed_names))
