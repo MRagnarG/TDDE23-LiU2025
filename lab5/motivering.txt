@@ -1,0 +1,16 @@
+Motivering av valda undantag till LAb5c2 tester:
+
+generator_from_image:
+- IndexError vid index >= len(img) : Testar att fi vår rätt Error vid en ogiltig index (int), då den måste alltid vara 
+mellan 0 och len(img) - 1.
+- TypeError för icke-int positiva index eftersom indexering förväntar int.
+- Testar att negativa index returnerar rätt pixel med baklänges-logik av python.
+
+pixel_constraint (returfunktion):
+- TypeError om pixel inte är tuple/list (det som förväntas) eller om komponenter inte är numeriska, eftersom datatypen är felaktig.
+- ValueError om pixel inte har exakt tre komponenter (H, S, V), eftersom värdemängden är fel.
+- Undantagen gör det lätt för den som anropar funktionen att förstå om felet beror på fel datatyp eller på att värdet har fel form eller längd.
+
+combine_images:
+- Upptäcker alla fel som uppstår i maskfunktionen eller generatorerna och raisar ett RuntimeError som visar vid vilket index felet inträffade.
+- RuntimeError signalerar “fel vid körning” i kompositionen utan att dölja originalorsak; originalfelet kedjas (raise ... from e) så att diagnos är möjlig.
