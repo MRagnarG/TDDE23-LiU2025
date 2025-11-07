@@ -31,10 +31,9 @@ def pixel_constraint(
             0 if it's not.
         """
         (h, s, v) = pixel
-        if hlow <= h <= hhigh and slow <= s <= shigh and vlow <= v <= vhigh:
-            return 1
-        else:
-            return 0
+        return int(
+            hlow <= h <= hhigh and slow <= s <= shigh and vlow <= v <= vhigh
+        )
 
     return is_in_interval
 

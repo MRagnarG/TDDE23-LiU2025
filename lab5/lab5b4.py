@@ -4,9 +4,16 @@ from lab5a import cvimg_to_list
 from lab5b2 import generator_from_image
 
 
-def gradient_condition(pixel):
-    """Function that given a pixel in BGR format, will return a value(float)
-    to serve as weight in a image blender."""
+def gradient_condition(pixel: float):
+    """Calculates a weight value (between 0 and 1) based on a pixel's
+color intensity in the red channel.
+
+Args:
+    pixel (tuple[int, int, int]): The pixel's color values in BGR format.
+
+Returns:
+    float: A normalized value between 0 and 1 corresponding to the pixel's red component.
+"""
     return pixel[2] / 255
 
 

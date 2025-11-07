@@ -47,7 +47,7 @@ def test_mask_err():
 def test_gen_err():
     """Testar att combine_images funktionen kastar RuntimeError när en av
       generatorfunktion (gen1 eller gen2) misslyckas, till exempel vid
-      IndexError. 
+      IndexError.
 
     Kontrollerar även att det ursprungliga felet bevaras.
     """
@@ -74,7 +74,7 @@ def test_ok():
     Testar att combine_images funktionen fungerar som vanligt i ett normallt
     inmätning.
 
-    Verifierar att rätt generator väljs beroende på mask_function och 
+    Verifierar att rätt generator väljs beroende på mask_function och
     att resultatet innehåller rätt förväntade pixlar.
     """
     hsv_pixels = [(0, 0, 1), (0, 0, 0)]
