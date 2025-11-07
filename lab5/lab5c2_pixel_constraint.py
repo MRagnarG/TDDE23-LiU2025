@@ -1,4 +1,12 @@
 def pixel_constraint(hlow, hhigh, slow, shigh, vlow, vhigh):
+
+    for name, val in zip(
+        ["hlow", "hhigh", "slow", "shigh", "vlow", "vhigh"],
+        [hlow, hhigh, slow, shigh, vlow, vhigh],
+    ):
+        if not isinstance(val, (int, float)):
+            raise TypeError(f"{name} must be numeric")
+
     def is_in_interval(pixel):
         # Grundläggande validering
         if not isinstance(pixel, (tuple, list)):
@@ -34,12 +42,11 @@ def test_not_tuple():
     is_in_interval, där inmätning borde vara en tupel."""
     is_in = pixel_constraint(0, 255, 0, 255, 0, 255)
     for wrong in (None, "str", 123):
-        raised = False
         try:
             is_in(wrong)
+            assert False, "Expected TypeError but none was raised"
         except TypeError:
-            raised = True
-        assert raised is True
+            pass
 
 
 def test_len_error():
@@ -47,12 +54,11 @@ def test_len_error():
     is_in_interval, där inmätning borde vara en tupel med tre tal."""
     is_in = pixel_constraint(0, 255, 0, 255, 0, 255)
     for bad in ((), (1,), (1, 2), (1, 2, 3, 4)):
-        raised = False
         try:
             is_in(bad)
+            assert False, "Expected ValueError but none was raised."
         except ValueError:
-            raised = True
-        assert raised is True
+            pass
 
 
 def test_not_num():
@@ -60,12 +66,11 @@ def test_not_num():
     is_in_interval, där alla element i tupel borde vara (int/float)"""
     is_in = pixel_constraint(0, 255, 0, 255, 0, 255)
     for bad in (("a", 1, 2), (1, "b", 2), (1, 2, object())):
-        raised = False
         try:
             is_in(bad)
+            assert False, "Expected TypeError but none was raised"
         except TypeError:
-            raised = True
-        assert raised is True
+            pass
 
 
 def run_all():

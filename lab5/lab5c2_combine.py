@@ -2,6 +2,14 @@ from lab5c2_generator import generator_from_image
 
 
 def combine_images(list_hsv_pixels, mask_function, gen1, gen2):
+
+    if not isinstance(list_hsv_pixels, (list, tuple)):
+        raise TypeError("list_hsv_pixels must be a list or tuple")
+    if not callable(mask_function):
+        raise TypeError("mask_function must be callable")
+    if not callable(gen1) or not callable(gen2):
+        raise TypeError("gen1 and gen2 must be callable")
+
     comb_img = []
     for index in range(len(list_hsv_pixels)):
         try:
@@ -12,9 +20,8 @@ def combine_images(list_hsv_pixels, mask_function, gen1, gen2):
                 pixel = gen2(index)
             comb_img.append(pixel)
         except Exception as e:
-            raise RuntimeError(
-                f"combine_images failed at index {index}"
-            ) from e
+            raise RuntimeError(f"combine_images failed at index {index}: {e}")
+
     return comb_img
 
 

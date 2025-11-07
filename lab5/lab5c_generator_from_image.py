@@ -3,7 +3,8 @@ from lab5b2 import generator_from_image
 
 
 def test_basic():
-    # Testa att index inom intervallet returnerar motsvarande pixel.
+    """Tests that valid indices return the corresponding pixels."""
+
     img = [(1, 2, 3), (4, 5, 6)]
     gen = generator_from_image(img)
     assert gen(0) == (1, 2, 3)
@@ -11,7 +12,8 @@ def test_basic():
 
 
 def test_limits():
-    # Testar gränser enligt index >= len(img) -> returnera 0.
+    """Tests that indices beyond the image length return 0."""
+
     img = [(10, 20, 30)]
     gen = generator_from_image(img)
     assert gen(1) == 0
@@ -19,7 +21,8 @@ def test_limits():
 
 
 def test_negative():
-    # Testar för negativa index (negativa index räknas från slutet).
+    """Tests that negative indices access pixels from the end."""
+
     img = [(1, 1, 1), (2, 2, 2), (3, 3, 3)]
     gen = generator_from_image(img)
     assert gen(-1) == (3, 3, 3)
@@ -27,8 +30,8 @@ def test_negative():
 
 
 def test_empty_list():
-    # Testa med en tom lista. Alla icke-negativa index är
-    #  utanför gränser -> 0.
+    """Tests behavior when the underlying image list is empty."""
+
     img = []
     gen = generator_from_image(img)
     assert gen(0) == 0
@@ -44,9 +47,8 @@ def test_empty_list():
 
 
 def test_mutation_visibility():
-    # Testar om Generatorslutningen håller en referens till listan.
-    # Om listan ändras efter att generatorn skapats,
-    # ska generatorn spegla ändringen.
+    """Tests that the generator sees mutations to the underlying list."""
+
     img = [(0, 0, 0)]
     gen = generator_from_image(img)
     assert gen(0) == (0, 0, 0)
@@ -56,10 +58,8 @@ def test_mutation_visibility():
 
 
 def test_type_handling():
-    # Testar Icke-heltal som index (t.ex. float, str)
-    #  leder normalt till TypeError vid liståtkomst.
-    #  - Vi accepterar även ValueError om implementationen
-    #  jämför med len() före indexåtkomst.
+    """Tests that non-integer indices lead to a type-related error."""
+
     img = [(7, 7, 7)]
     gen = generator_from_image(img)
 
@@ -76,6 +76,8 @@ def test_type_handling():
 
 
 def test_generator_from_image():
+    """Runs all generator tests and reports pass/fail counts."""
+
     tests = [
         test_basic,
         test_limits,

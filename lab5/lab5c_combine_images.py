@@ -3,7 +3,8 @@ from lab5b3 import combine_images
 
 
 def test_basic():
-    # Testa att weight == 1 -> välj gen1, annars gen2.
+    """Tests that weight==1 picks gen1 and all other weights pick gen2."""
+
     hsv_data = [(0, 0, 0), (0, 0, 1), (0, 0, 0), (0, 0, 1)]
 
     def mask_fn(pixel):
@@ -25,7 +26,8 @@ def test_basic():
 
 
 def test_empty_hsv_list():
-    # Testar att tom hsv_list -> inga iterationer -> tom output.
+    """Tests that an empty HSV list produces an empty output."""
+
     out = combine_images(
         [], lambda p: 1, lambda i: (0, 0, 0), lambda i: (1, 1, 1)
     )
@@ -33,7 +35,7 @@ def test_empty_hsv_list():
 
 
 def test_gen1_shorter_gen2():
-    # Testar att om gen1 tar slut: generator_from_image returnerar 0
+    """Tests behavior when the first image generator runs out of pixels."""
 
     # tre 1:or, sista 0
     hsv_list = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 0)]
@@ -57,8 +59,8 @@ def test_gen1_shorter_gen2():
 
 
 def test_generators_longer_mask():
-    # Testa om generatorernas listor är längre än hsv_list, ska extra data
-    # ignoreras (iteration sker endast över hsv_list längd).
+    """Tests that extra generator data is ignored when HSV list is shorter."""  
+
     hsv_pixels = [(0, 0, 0)]  # längd 1
 
     def mask_fn(_):
@@ -71,7 +73,8 @@ def test_generators_longer_mask():
 
 
 def test_float():
-    # 1.0 == 1 -> ska välja gen1.
+    """Tests that weight 1.0 is treated the same as integer 1."""
+
     hsv_pixels = [(0, 0, 123)] * 3
 
     def mask_fn(_):
@@ -84,8 +87,8 @@ def test_float():
 
 
 def test_non1_weight():
-    # Testar att alla vikter som inte är exakt lika med 1 ska välja gen2
-    # enligt koden.
+    """Tests that all non-1 weights select the second image generator."""
+
     for w in (0, 0.5, 2, -1, None, "1"):
         hsv_list = [(0, 0, 0), (0, 0, 0)]
 
@@ -100,7 +103,8 @@ def test_non1_weight():
 
 
 def test_hsv_list_err():
-    # Testa om mask_function inte kan hantera mask-pixlarna ska felet anropas
+    """Tests that invalid HSV entries cause the combine function to raise."""
+
     hsv_list = ["bad-entry"]  # inte en tuple -> vår mask_fn kastar TypeError
 
     def mask_fn(pixel):
@@ -126,8 +130,8 @@ def test_hsv_list_err():
 
 
 def test_none():
-    # Testar felaktig input: None som hsv_list ska orsaka
-    # TypeError (iterering på None)
+    """Tests that passing None as HSV list results in a TypeError."""
+
     raised = False
 
     def gen_black(i):
@@ -144,6 +148,8 @@ def test_none():
 
 
 def test_combine_images():
+    """Runs all combine-image tests and reports pass/fail counts."""
+
     tests = [
         test_basic,
         test_empty_hsv_list,

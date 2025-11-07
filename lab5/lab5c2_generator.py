@@ -1,4 +1,8 @@
 def generator_from_image(img):
+
+    if not isinstance(img, (list, tuple)):
+        raise TypeError("img must be a list or tuple of pixels")
+
     def pixel_color(index):
         # Typkontroll
         if not isinstance(index, int):
@@ -23,12 +27,12 @@ def test_index_error():
     """
     img = [(1, 2, 3)]
     gen = generator_from_image(img)
-    raised = False
+    # index == len(img) -> IndexError
     try:
-        gen(1)  # index == len(img) -> IndexError
+        gen(1)
+        assert False, "Expected IndexError but none was raised"
     except IndexError:
-        raised = True
-    assert raised is True
+        pass
 
 
 def test_index_type_error():
@@ -39,12 +43,11 @@ def test_index_type_error():
     img = [(1, 2, 3)]
     gen = generator_from_image(img)
     for bad in (0.5, "1", None):
-        raised = False
         try:
             gen(bad)
+            assert False, "Expected TypeError but none was raised"
         except TypeError:
-            raised = True
-        assert raised is True
+            pass
 
 
 def test_neg_index():

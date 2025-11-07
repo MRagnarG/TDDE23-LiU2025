@@ -42,7 +42,6 @@ if __name__ == "__main__":
 
     cv2.imshow("original", orig_img)
     cv2.imshow(
-        "new", rgblist_to_cvimg(new_list, orig_img.shape[0], 
-                                orig_img.shape[1])
+        "new", rgblist_to_cvimg(new_list, orig_img.shape[0], orig_img.shape[1])
     )
     cv2.waitKey(0)
