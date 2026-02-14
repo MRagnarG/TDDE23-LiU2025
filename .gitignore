@@ -448,4 +448,50 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+lab5/cv2_env/
+
+# Packaging / build artifacts
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# Test / type-check / linter caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pytype/
+.coverage
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDEs / editors
+.vscode/
+.idea/
+*.iml
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Temp files
+*.swp
+*.swo
+*.tmp
+*.log
+
+# Avoid accidentally committing nested git metadata (e.g. from extracted zips)
+**/.git/
+
 # End of https://www.toptal.com/developers/gitignore/api/vim,emacs,linux,macos,python,pycharm,windows,visualstudiocode
